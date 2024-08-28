@@ -38,6 +38,8 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 FROM python-poetry-base AS python-poetry
 
 # Sets JDK 8 as default
+ARG JAVA_HOME_8_X64
+ARG JAVA_HOME_21_X64
 ENV JAVA_HOME=$JAVA_HOME_8_X64
 ENV PATH=$JAVA_HOME/bin:$PATH
 
