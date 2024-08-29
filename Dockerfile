@@ -40,6 +40,9 @@ FROM python-poetry-base AS python-poetry
 ENV JAVA_HOME_8_X64="/usr/lib/jvm/openlogic-openjdk-8u422-b05-linux-x64"
 ENV JAVA_HOME_21_X64="/usr/lib/jvm/openlogic-openjdk-21.0.4+7-linux-x64"
 
+RUN apt-get update \
+  && apt-get install --no-install-recommends --assume-yes curl
+
 RUN curl -sSL -o /usr/lib/jvm/openlogic-openjdk-8u422-b05-linux-x64.tar.gz https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u422-b05/openlogic-openjdk-8u422-b05-linux-x64.tar.gz \
   && curl -sSL -o /usr/lib/jvm/openlogic-openjdk-21.0.4+7-linux-x64.tar.gz https://builds.openlogic.com/downloadJDK/openlogic-openjdk/21.0.4+7/openlogic-openjdk-21.0.4+7-linux-x64.tar.gz
 
