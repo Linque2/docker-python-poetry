@@ -37,9 +37,17 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 ###############################################################################
 FROM python-poetry-base AS python-poetry
 
-# Sets JDK 8 as default
-ARG JAVA_HOME_8_X64
-ARG JAVA_HOME_21_X64
+ENV JAVA_HOME_8_X64="/usr/lib/jvm/openlogic-openjdk-8u422-b05-linux-x64"
+ENV JAVA_HOME_21_X64="/usr/lib/jvm/openlogic-openjdk-21.0.4+7-linux-x64"
+
+RUN curl -sSL -o /usr/lib/jvm/openlogic-openjdk-8u422-b05-linux-x64.tar.gz https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u422-b05/openlogic-openjdk-8u422-b05-linux-x64.tar.gz \
+  && curl -sSL -o /usr/lib/jvm/openlogic-openjdk-21.0.4+7-linux-x64.tar.gz https://builds.openlogic.com/downloadJDK/openlogic-openjdk/21.0.4+7/openlogic-openjdk-21.0.4+7-linux-x64.tar.gz
+
+RUN mkdir -p ${JAVA_HOME_8_X64} ${JAVA_HOME_21_X64} \
+  && tar -xzf /usr/lib/jvm/openlogic-openjdk-8u422-b05-linux-x64.tar.gz -C ${JAVA_HOME_8_X64} --strip-components=1 \
+  && tar -xzf /usr/lib/jvm/openjdk-21.0.4+7-linux-x64.tar.gz -C ${JAVA_HOME_21_X64} --strip-components=1 \
+  && rm /usr/lib/jvm/*.tar.gz
+
 ENV JAVA_HOME=$JAVA_HOME_8_X64
 ENV PATH=$JAVA_HOME/bin:$PATH
 
